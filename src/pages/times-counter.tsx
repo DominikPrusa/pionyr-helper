@@ -4,6 +4,7 @@ import {
   formatToHHMMSS,
   timeToSeconds,
 } from "../utils/TimeConversions";
+import { useNavigate } from "react-router-dom";
 
 const rows = Array.from({ length: 8 }, (_, i) => i + 1);
 
@@ -22,6 +23,7 @@ type FormData = {
 };
 
 const TimesCounter = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState<FormData>({
     name: "",
     group: "",
@@ -130,18 +132,18 @@ const TimesCounter = () => {
     });
   };
 
-  const handleSubmit = () => {
-    const jsonData = getFormJson();
+  // const handleSubmit = () => {
+  //   const jsonData = getFormJson();
 
-    // send somewhere
-    // fetch("/api/times-counter", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(jsonData),
-    // });
+  //   // send somewhere
+  //   fetch("/api/times-counter", {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify(jsonData),
+  //   });
 
-    console.log(JSON.stringify(jsonData, null, 2));
-  };
+  //   console.log(JSON.stringify(jsonData, null, 2));
+  // };
 
   return (
     <main className="min-h-screen bg-zinc-100 px-3 py-4 text-zinc-900 sm:px-6">
@@ -186,11 +188,24 @@ const TimesCounter = () => {
                 <label className="w-16 shrink-0 px-2 py-3 text-xs font-bold uppercase text-zinc-700 sm:w-20">
                   Start:
                 </label>
+
                 <input
-                  type="time"
-                  step={1}
+                  type="text"
+                  inputMode="numeric"
+                  placeholder="HH:mm:ss"
                   value={formData.startTime}
-                  onChange={(e) => handleChange("startTime", e.target.value)}
+                  onChange={(e) => {
+                    let value = e.target.value.replace(/\D/g, "").slice(0, 6);
+
+                    if (value.length > 4) {
+                      value = `${value.slice(0, 2)}:${value.slice(2, 4)}:${value.slice(4, 6)}`;
+                    } else if (value.length > 2) {
+                      value = `${value.slice(0, 2)}:${value.slice(2, 4)}`;
+                    }
+
+                    handleChange("startTime", value);
+                  }}
+                  pattern="^([01]\d|2[0-3]):([0-5]\d):([0-5]\d)$"
                   className="w-full bg-transparent px-2 py-3 text-xs outline-none placeholder:text-zinc-400 sm:text-sm"
                 />
               </div>
@@ -199,10 +214,22 @@ const TimesCounter = () => {
                   Cíl:
                 </label>
                 <input
-                  type="time"
-                  step={1}
+                  type="text"
+                  inputMode="numeric"
+                  placeholder="HH:mm:ss"
                   value={formData.endTime}
-                  onChange={(e) => handleChange("endTime", e.target.value)}
+                  onChange={(e) => {
+                    let value = e.target.value.replace(/\D/g, "").slice(0, 6);
+
+                    if (value.length > 4) {
+                      value = `${value.slice(0, 2)}:${value.slice(2, 4)}:${value.slice(4, 6)}`;
+                    } else if (value.length > 2) {
+                      value = `${value.slice(0, 2)}:${value.slice(2, 4)}`;
+                    }
+
+                    handleChange("endTime", value);
+                  }}
+                  pattern="^([01]\d|2[0-3]):([0-5]\d):([0-5]\d)$"
                   className="w-full bg-transparent px-2 py-3 text-xs outline-none placeholder:text-zinc-400 sm:text-sm"
                 />
               </div>
@@ -339,10 +366,10 @@ const TimesCounter = () => {
           </button>
           <button
             type="button"
-            onClick={handleSubmit}
+            onClick={() => navigate("/")}
             className="mt-4 flex-1 rounded-xl bg-zinc-900 px-4 py-3 text-sm font-semibold text-white transition hover:bg-zinc-800"
           >
-            Odeslat JSON
+            Zpět na menu
           </button>
         </div>
       </div>
