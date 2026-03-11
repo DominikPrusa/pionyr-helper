@@ -3,6 +3,7 @@ import "./App.css";
 import TesseractExample from "./pages/TesseractExample";
 import Home from "./pages/Home";
 import TimesCounter from "./pages/times-counter";
+import WaitingTimeTimer from "./pages/waiting-time-timer";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/times-counter" element={<TimesCounter />} />
+        <Route path="/waiting-time-timer" element={<WaitingTimeTimer />} />
         <Route path="/tesseractExample" element={<TesseractExample />} />
       </Routes>
     </>
