@@ -78,7 +78,7 @@ const WaitingTimeTimerCard = ({ id, onRemove }: WaitingTimeTimerCardProps) => {
               type="button"
               onClick={onRemove}
               aria-label="Odstranit kartu"
-              className="flex h-11 w-11 items-center justify-center rounded-2xl border border-neutral-200 bg-white text-neutral-600 transition active:scale-95"
+              className="flex h-11 w-11 items-center justify-center rounded-2xl border border-neutral-200 bg-white text-neutral-600 hover:text-red-600 transition active:scale-95"
             >
               <Trash2 size={18} />
             </button>
