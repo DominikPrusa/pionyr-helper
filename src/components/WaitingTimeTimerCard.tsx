@@ -25,58 +25,64 @@ const WaitingTimeTimerCard = ({ id, onRemove }: WaitingTimeTimerCardProps) => {
   const formattedTime = useMemo(() => formatSecondsToMMSS(seconds), [seconds]);
 
   return (
-    <div className="overflow-hidden rounded-[28px] border border-black/5 bg-white shadow-[0_16px_40px_rgba(0,0,0,0.08)]">
-      <div className="bg-neutral-100 px-6 py-6 sm:px-8 sm:py-7">
-        <div className="flex items-start justify-between gap-6">
-          <div className="min-w-0 flex-1">
-            <label
-              htmlFor={`waiting-name-${id}`}
-              className="mb-3 block text-sm font-medium uppercase tracking-[0.12em] text-neutral-500"
+    <div className="overflow-hidden rounded-3xl border border-black/5 bg-white shadow-[0_10px_30px_rgba(0,0,0,0.08)] my-2">
+      <div className="p-3">
+        <div className="rounded-[22px] bg-neutral-50 px-4 py-3">
+          <div className="flex items-start justify-between gap-3">
+            <div className="min-w-0 flex-1">
+              <input
+                id={`waiting-name-${id}`}
+                type="text"
+                value={name}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setName(e.target.value)
+                }
+                placeholder="Zadejte jméno"
+                className="w-full border-0 bg-transparent p-0 text-base font-medium text-neutral-900 outline-none placeholder:text-neutral-400"
+              />
+
+              <div className="mt-2 flex items-center gap-2">
+                <div
+                  className={`h-2.5 w-2.5 rounded-full ${
+                    isRunning ? "bg-emerald-500" : "bg-red-600"
+                  }`}
+                />
+                <span className="text-xs font-medium text-neutral-500">
+                  {isRunning ? "Časovač běží" : "Pozor časovač neběží"}
+                </span>
+              </div>
+            </div>
+
+            <div className="shrink-0 rounded-2xl bg-white px-3 py-2 shadow-sm">
+              <span className="tabular-nums text-3xl font-semibold tracking-[-0.06em] text-neutral-950 sm:text-4xl">
+                {formattedTime}
+              </span>
+            </div>
+          </div>
+
+          <div className="mt-3 flex items-center justify-start gap-2">
+            <button
+              type="button"
+              onClick={() => setIsRunning((prev) => !prev)}
+              aria-label={isRunning ? "Zastavit časovač" : "Spustit časovač"}
+              className="flex h-12 w-12 items-center justify-center rounded-2xl bg-neutral-950 text-white shadow-sm transition active:scale-95"
             >
-              Jméno
-            </label>
+              {isRunning ? (
+                <Pause size={20} />
+              ) : (
+                <Play size={20} className="ml-0.5" />
+              )}
+            </button>
 
-            <input
-              id={`waiting-name-${id}`}
-              type="text"
-              value={name}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setName(e.target.value)
-              }
-              placeholder="Zadejte jméno"
-              className="w-full border-0 bg-transparent p-0 text-2xl font-medium text-neutral-900 outline-none placeholder:text-neutral-300 sm:text-3xl"
-            />
+            <button
+              type="button"
+              onClick={onRemove}
+              aria-label="Odstranit kartu"
+              className="flex h-11 w-11 items-center justify-center rounded-2xl border border-neutral-200 bg-white text-neutral-600 transition active:scale-95"
+            >
+              <Trash2 size={18} />
+            </button>
           </div>
-
-          <div className="shrink-0 rounded-2xl bg-white/80 px-4 py-3 shadow-sm backdrop-blur-sm">
-            <span className="tabular-nums text-4xl font-light tracking-tight text-neutral-950 sm:text-5xl">
-              {formattedTime}
-            </span>
-          </div>
-        </div>
-
-        <div className="mt-8 flex items-center gap-3 sm:gap-4">
-          <button
-            type="button"
-            onClick={() => setIsRunning((prev) => !prev)}
-            aria-label={isRunning ? "Zastavit časovač" : "Spustit časovač"}
-            className="flex h-14 min-w-19 items-center justify-center rounded-2xl border border-neutral-900 bg-neutral-950 px-5 text-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg"
-          >
-            {isRunning ? (
-              <Pause size={24} />
-            ) : (
-              <Play size={24} className="ml-0.5" />
-            )}
-          </button>
-
-          <button
-            type="button"
-            onClick={onRemove}
-            aria-label="Odstranit kartu"
-            className="flex h-14 w-14 items-center justify-center rounded-2xl border border-neutral-200 bg-white text-neutral-700 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md hover:text-red-500"
-          >
-            <Trash2 size={24} />
-          </button>
         </div>
       </div>
     </div>
