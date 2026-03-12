@@ -1,20 +1,13 @@
 import React, { useMemo, useState } from "react";
 import { Dices } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { WORDS_BY_DIFFICULTY } from "../utils/RandomWords";
 
-const WORDS = [
-  "shadow",
-  "ember",
-  "cipher",
-  "signal",
-  "matrix",
-  "pixel",
-  "raven",
-  "echo",
-  "vector",
-  "nova",
-  "orbit",
-  "ghost",
+const DIFFICULTY_OPTIONS = [
+  { value: "easy", label: "Lehká" },
+  { value: "medium", label: "Střední" },
+  { value: "hard", label: "Těžká" },
+  { value: "extreme", label: "Extrémní" },
 ];
 
 const CIPHER_OPTIONS = [
@@ -51,6 +44,9 @@ const Ciphers = () => {
   const navigate = useNavigate();
   const [text, setText] = useState("");
   const [selectedCipher, setSelectedCipher] = useState("caesar");
+  const [difficulty, setDifficulty] = useState<
+    "easy" | "medium" | "hard" | "extreme"
+  >("medium");
 
   const resultText = useMemo(
     () => getResultPlaceholder(selectedCipher, text),
@@ -58,7 +54,8 @@ const Ciphers = () => {
   );
 
   const handleRandomWord = () => {
-    const randomWord = WORDS[Math.floor(Math.random() * WORDS.length)];
+    const words = WORDS_BY_DIFFICULTY[difficulty];
+    const randomWord = words[Math.floor(Math.random() * words.length)];
     setText(randomWord);
   };
 
@@ -68,7 +65,7 @@ const Ciphers = () => {
         <div className="rounded-[2rem] bg-[#fcfcfc] p-3 shadow-[0_8px_30px_rgba(0,0,0,0.06)] ring-1 ring-black/5 sm:p-4 lg:p-5">
           <div className="space-y-4 rounded-[1.75rem] bg-[#f7f7f7] p-4 sm:p-5 lg:p-6">
             <div>
-              <p className="mb-1 text-sm font-semibold text-zinc-500">
+              <p className="mb-1 text-sm font-semibold text-zinc-800">
                 Zadejte text
               </p>
               <p className="text-xs text-zinc-400">
@@ -80,7 +77,7 @@ const Ciphers = () => {
               <textarea
                 value={text}
                 onChange={(e) => setText(e.target.value)}
-                placeholder="Input"
+                placeholder="slovo nebo text"
                 rows={2}
                 className="min-h-[58px] flex-1 resize-y rounded-2xl border border-black/10 bg-white px-4 py-3 text-base text-zinc-900 placeholder:text-zinc-400 outline-none transition focus:border-black/15 focus:ring-2 focus:ring-black/5"
               />
@@ -96,6 +93,28 @@ const Ciphers = () => {
             </div>
 
             <div>
+              <p className="mb-2 text-sm font-semibold text-zinc-500">
+                Obtížnost náhodného slova
+              </p>
+              <select
+                value={difficulty}
+                onChange={(e) =>
+                  setDifficulty(e.target.value as "easy" | "medium" | "hard")
+                }
+                className="w-full rounded-2xl border border-black/10 bg-white px-4 py-3 text-base text-zinc-800 outline-none transition focus:border-black/15 focus:ring-2 focus:ring-black/5"
+              >
+                {DIFFICULTY_OPTIONS.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <p className="mb-2 text-sm font-semibold text-zinc-500">
+                Typ šifry
+              </p>
               <select
                 value={selectedCipher}
                 onChange={(e) => setSelectedCipher(e.target.value)}
