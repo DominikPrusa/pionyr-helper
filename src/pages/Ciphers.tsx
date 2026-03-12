@@ -2,7 +2,12 @@ import React, { useMemo, useState } from "react";
 import { Dices } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { WORDS_BY_DIFFICULTY } from "../utils/RandomWords";
-import { anagram, caesarCipher, filledLetters } from "../utils/Ciphers";
+import {
+  anagram,
+  caesarCipher,
+  filledLetters,
+  reverse,
+} from "../utils/Ciphers";
 
 const DIFFICULTY_OPTIONS = [
   { value: "easy", label: "Lehká" },
@@ -16,7 +21,7 @@ const CIPHER_OPTIONS = [
   { value: "mobilni", label: "Mobilní" },
   { value: "prvniposledni", label: "První a poslední" },
   { value: "kazdexpismeno", label: "Každé X-té písmeno" },
-  { value: "pozpatku", label: "Slovo pozpátku" },
+  { value: "pozpatku", label: "Pozpátku" },
   { value: "mrizka", label: "Mřížka" },
 ];
 
@@ -41,7 +46,7 @@ const getResultPlaceholder = (
     case "kazdexpismeno":
       return filledLetters(text, fillLetters);
     case "pozpatku":
-      return `Pozpátku result for: ${text}`;
+      return reverse(text);
     case "mrizka":
       return `Mřížka result for: ${text}`;
     default:

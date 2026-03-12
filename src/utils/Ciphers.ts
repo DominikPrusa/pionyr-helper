@@ -98,3 +98,14 @@ export const filledLetters = (text: string, fillCount: number): string => {
     })
     .join("");
 };
+
+export const reverse = (text: string): string => {
+  const normalizedText = removeCzechDiacritics(text);
+  return normalizedText
+    .split(/(\s+)/)
+    .map((part) => {
+      if (/^\s+$/.test(part)) return part;
+      return part.split("").reverse().join("");
+    })
+    .join("");
+};
