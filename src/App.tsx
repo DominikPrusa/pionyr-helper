@@ -1,6 +1,5 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import TesseractExample from "./pages/TesseractExample";
 import Home from "./pages/Home";
 import TimesCounter from "./pages/times-counter";
 import WaitingTimeTimer from "./pages/waiting-time-timer";
@@ -16,7 +15,6 @@ function App() {
         <Route path="/waiting-time-timer" element={<WaitingTimeTimer />} />
         <Route path="/ciphers" element={<Ciphers />} />
         <Route path="/morse-code" element={<Morse />} />
-        <Route path="/tesseractExample" element={<TesseractExample />} />
       </Routes>
     </>
   );

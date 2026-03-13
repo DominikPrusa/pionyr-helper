@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Dices } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { WORDS_BY_DIFFICULTY } from "../utils/RandomWords";

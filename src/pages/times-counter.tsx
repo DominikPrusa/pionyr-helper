@@ -38,7 +38,7 @@ const TimesCounter = () => {
   const [totalPoints, setTotalPoints] = useState<number>(0);
   const [totalWaitingTime, setTotalWaitingTime] = useState<number>(0);
   const [resultTime, setResultTime] = useState<string>("");
-  const [placement, setPlacement] = useState<number>();
+  // const [placement, setPlacement] = useState<number>();
 
   const handleChange = (
     field: keyof Omit<FormData, "stations">,
@@ -67,23 +67,6 @@ const TimesCounter = () => {
         stations: updatedStations,
       };
     });
-  };
-
-  const getFormJson = () => {
-    const payload = {
-      name: formData.name,
-      group: formData.group,
-      startTime: formData.startTime,
-      endTime: formData.endTime,
-      stations: formData.stations.map((station) => ({
-        name: station.name,
-        points: station.points,
-        "waiting-time": station.waitingTime,
-      })),
-    };
-
-    console.log(payload);
-    return payload;
   };
 
   useEffect(() => {
@@ -131,19 +114,6 @@ const TimesCounter = () => {
       })),
     });
   };
-
-  // const handleSubmit = () => {
-  //   const jsonData = getFormJson();
-
-  //   // send somewhere
-  //   fetch("/api/times-counter", {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify(jsonData),
-  //   });
-
-  //   console.log(JSON.stringify(jsonData, null, 2));
-  // };
 
   return (
     <main className="min-h-screen bg-zinc-100 px-3 py-4 text-zinc-900 sm:px-6">
@@ -347,7 +317,7 @@ const TimesCounter = () => {
                 <input
                   type="text"
                   inputMode="numeric"
-                  value={placement}
+                  // value={placement}
                   disabled
                   className="w-full bg-transparent px-2 py-3 text-sm outline-none placeholder:text-zinc-400"
                   placeholder="1"
