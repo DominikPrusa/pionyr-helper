@@ -150,7 +150,7 @@ const CrossLetter = ({ letter }: { letter: string }) => {
   return (
     <div className="flex flex-col items-center">
       <div
-        className={`flex h-4 w-8 sm:h-8 sm:w-14 items-center px-3
+        className={`flex h-4 w-8 sm:h-8 sm:w-14 items-center px-1
         ${dotPositionClasses[dot]}
         ${borders.top ? "border-t-2" : ""}
         ${borders.right ? "border-r-2" : ""}
