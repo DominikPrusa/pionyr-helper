@@ -6,8 +6,10 @@ import {
   anagram,
   caesarCipher,
   filledLetters,
+  mobileCipher,
   reverse,
 } from "../utils/Ciphers";
+import { velkyPolskyKriz } from "../components/CrossLetter";
 
 const DIFFICULTY_OPTIONS = [
   { value: "easy", label: "Lehká" },
@@ -40,7 +42,7 @@ const getResultPlaceholder = (
     case "caesar":
       return caesarCipher(text, caesarOffset);
     case "mobilni":
-      return `Mobilní result for: ${text}`;
+      return mobileCipher(text);
     case "prvniposledni":
       return anagram(text);
     case "kazdexpismeno":
@@ -48,7 +50,11 @@ const getResultPlaceholder = (
     case "pozpatku":
       return reverse(text);
     case "mrizka":
-      return `Mřížka result for: ${text}`;
+      return (
+        <div className="flex flex-row flex-wrap gap-4">
+          {velkyPolskyKriz(text)}
+        </div>
+      );
     default:
       return "Výsledek se zobrazí tady.";
   }
