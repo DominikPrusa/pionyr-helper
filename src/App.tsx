@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import TimesCounter from "./pages/times-counter";
 import WaitingTimeTimer from "./pages/waiting-time-timer";
 import Ciphers from "./pages/Ciphers";
+import Morse from "./pages/Morse";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/times-counter" element={<TimesCounter />} />
         <Route path="/waiting-time-timer" element={<WaitingTimeTimer />} />
         <Route path="/ciphers" element={<Ciphers />} />
+        <Route path="/morse-code" element={<Morse />} />
         <Route path="/tesseractExample" element={<TesseractExample />} />
       </Routes>
     </>
